@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>vue小游戏</title>
+	<script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+	<link href="https://cdn.bootcss.com/foundation/6.3.1/css/foundation.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+	<div id="app">
+		<section class="row">
+		<!-- 自己模块 -->
+			<div class="small-6 columns">
+				<h1 class="text-center">你</h1>
+				<!-- 血条 -->
+				<div class="blood-wrapper">
+					<div class="blood text-center" style="background: red;color: #fff;" v-text="playerblood" :style ="{width:playerblood + '%'}"></div>
+				</div>
+			</div>
+		<!-- 怪物模块 -->
+			<div class="small-6 columns">
+				<h1 class="text-center">怪物</h1>
+				<!-- 血条 -->
+				<div class="blood-wrapper">
+					<div class="blood text-center" style="background: red;color: #fff;" v-text="monsterblood" :style ="{width:monsterblood + '%'}"></div>
+				</div>
+			</div>
+		</section> 
+		<section class="row controls" v-if="!gameIsRun">
+			<!-- 开始游戏 -->
+			<div class="small-12 colums">
+				<button id="start-game" @click="startGame">开始游戏</button>
+			</div>
+		</section>
+
+		<section class="row controls" v-else>
+			<div class="small-12 colums">
+				<button id="attack" @click="attack">攻击</button>
+				<button id="special-attack" @click="specialAttack">快速攻击</button>
+                <button id="heal" @click="heal">添加血量</button>
+                <button id="give-up" @click="giveUp">投降</button>
+			</div>
+		</section>
+		<!-- 攻击过程描述 -->
+		<section class="row log" v-if="turns.length > 0">
+			<div class="small-12 columns">
+				<ul>	
+				<li v-for="v in turns" :class="{'player-attack': v.isPlayer,'monster-attack':!v.isPlayer}">
+					{{v.text}}
+				</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+	<script src="js/app.js"></script>
+</body>
+</html>
